@@ -6,11 +6,37 @@ import MailItem from './MailItem';
 import { useNavigate } from 'react-router-dom';
 const Inbox = () => {
     const fromMail = localStorage.getItem('email').replace(/[@.]/g, '');
+    console.log("email",fromMail);
    const [mailList,setMailList] = useState();
    const [isRead,setIsRead] = useState(false);
     const navigate =  useNavigate();
    const mailLen =  mailList!=undefined ? Object.keys(mailList).length : 0
    
+
+   const deleteMailHandler =async (id)=>{
+  
+    try {
+      const resp=  await fetch(`https://react-http-2f680-default-rtdb.firebaseio.com/mails/to/${fromMail}/${id}.json`,{
+        method:'DELETE',
+          })
+       if(!resp.ok){
+        throw new Error("succesful request but not deleted ")
+       }
+       const resArr =await  resp.json();
+       console.log('delete Mail successful')
+      
+    } catch (error) {
+      console.log("delete error to==",error);   
+    }
+    }
+
+const deleteMail=async (id)=>{
+ console.log('mail ready to delete', id);
+ await deleteMailHandler(id);
+  receivedMails();
+}
+
+
    const updateGetMail =async (item,id)=>{
    
 try {
@@ -81,9 +107,10 @@ useEffect(()=>{
     <div style={{marginTop: '8%'}} >{
         mailLen>0 ? 
      Object.keys( mailList).map((key)=>{
+        console.log('show key==',key);
         const curMail = mailList[key];
         return (
-            <MailItem curMail={curMail} id={key}  onClick={updateReadState} />
+            <MailItem curMail={curMail} id={key}  onClick={updateReadState} deleteMail={deleteMail} />
         )
      })
      : <div>no one send's you mail </div> 

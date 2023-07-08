@@ -5,7 +5,8 @@ import "./ExpenseItem.css"
 
 const MailItem = (props) => {
     const curMail = props.curMail;
- 
+  
+    
     
 
   return (
@@ -16,6 +17,10 @@ const MailItem = (props) => {
             <div   style={{}} className="expense-item__price">{curMail.subject}</div>
       <h4  >{curMail.from} </h4>
       <h2  >{curMail.text} </h2>
+      <Button variant='danger' onClick={ (event)=> {
+          event.stopPropagation(); 
+          props.deleteMail(props.id)}
+      }  >Delete</Button>
          </div>
     </Cards>
   )
