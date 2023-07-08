@@ -46,7 +46,7 @@ const getUserLogin = async (userDetail) =>{
     localStorage.setItem('token',res.idToken);
     console.log('use details onLogin',res);
   //  dispatch( authAction.onLogIn({data: passData}));
-    navigate('/home');
+    navigate('/inbox');
     
   } catch (err) {
     // dispatch(themeAction.toggleError());

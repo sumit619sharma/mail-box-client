@@ -3,7 +3,7 @@ import { Button, Container,Form } from 'react-bootstrap';
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-const Home = () => {
+const Compose = () => {
     const fromMail = localStorage.getItem('email').replace(/[@.]/g, ''); 
         const [formData, setFormData] = useState({
             from: fromMail,
@@ -135,5 +135,5 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Compose;
 
