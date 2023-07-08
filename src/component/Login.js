@@ -42,7 +42,9 @@ const getUserLogin = async (userDetail) =>{
 
     const res = await resp.json();
     const passData = {idToken: res.idToken,email: res.email}
-   console.log('use details onLogin',res);
+    localStorage.setItem('email', res.email);
+    localStorage.setItem('token',res.idToken);
+    console.log('use details onLogin',res);
   //  dispatch( authAction.onLogIn({data: passData}));
     navigate('/home');
     
