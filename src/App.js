@@ -1,13 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-import { Button } from 'react-bootstrap';
-import SignUp from './component/SignUp';
+import Root from './component/root';
 
 function App() {
   return (
     <div className="App">
-    <SignUp/>
-
+    <Root/>
     </div>
   );
 }

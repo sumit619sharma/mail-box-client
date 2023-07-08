@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-// import { Link , useNavigate} from 'react-router-dom';
+ import { Link , useNavigate} from 'react-router-dom';
 // import { useDispatch, useSelector } from 'react-redux';
 // import { themeAction } from '../redux-store/theme-reducer';
 import { Button, Container, Form } from 'react-bootstrap';
@@ -12,7 +12,7 @@ function SignUp() {
     confirm: '',
   });
  
-//   const navigate = useNavigate();
+   const navigate = useNavigate();
 // const dispatch = useDispatch();
 //const error = useSelector(state=> state.theme.error);  
 const addUserToFirebase = async (userDetail) =>{
@@ -36,7 +36,7 @@ const addUserToFirebase = async (userDetail) =>{
   
       const res = await resp.json();
       console.log("sign up succcessFul");
-    //  navigate('/login');
+      navigate('/login');
       
     } catch (err) {
       console.log("request to sign up failed");
@@ -97,42 +97,8 @@ const addUserToFirebase = async (userDetail) =>{
        padding: '20px' ,
         border: '1px solid #ccc' ,
       borderRadius: '5px' }} className="signup-container">
-      {/* <h2 style={{color: 'black'}} >Sign Up</h2>
-      <form className="signup-form" onSubmit={handleSubmit}>
-        
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="confirm"
-          placeholder="confirm password"
-          value={formData.confirm}
-          onChange={handleChange}
-          required
-        />
-          {error && <div>"failed to sign Up</div>}
-        <button type="submit">Sign Up</button>
-
-        <div>
-            already have an account? <Link to='/login' >login</Link>
-        </div>
-      </form> */}
-    
-      <Container>
+  
+         <Container>
       <h1>Sign Up</h1>
       <Form onSubmit={handleSubmit}   >
         <Form.Group  className='my-3' controlId="formBasicEmail">
@@ -165,9 +131,9 @@ const addUserToFirebase = async (userDetail) =>{
         <Button  className='my-3' variant="primary" type="submit">
           Sign Up
         </Button>
-        {/* <div>
+        <div >
             already have an account? <Link to='/login' >login</Link>
-        </div> */}
+        </div>
       </Form>
     </Container>
     
