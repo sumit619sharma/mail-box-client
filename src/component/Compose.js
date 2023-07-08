@@ -6,10 +6,11 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 const Compose = () => {
     const fromMail = localStorage.getItem('email').replace(/[@.]/g, ''); 
         const [formData, setFormData] = useState({
-            from: fromMail,
+            from: localStorage.getItem('email') || '',
           email: '',
           subject: '',
           text:'',
+          read: false,
           
         });
 

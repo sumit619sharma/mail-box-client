@@ -6,6 +6,7 @@ import Login from './Login';
 import NavBar from './NavBar';
 import Compose from './Compose';
 import Inbox from './Inbox';
+import MailDetail from './MailDetail';
 const Root = () => {
   return (
     <Router>
@@ -15,7 +16,8 @@ const Root = () => {
       <Route path="/" element ={<SignUp/> } />
       <Route path="/login" element= <Login/> />
       <Route path="/compose" element= <Compose/> />
-      <Route path="/inbox" element= <Inbox/> />
+      <Route exact path="/inbox" element= <Inbox/> />
+      <Route  path="/inbox/:item" element= <MailDetail/> />
          </Routes>
   </Router>
   )
