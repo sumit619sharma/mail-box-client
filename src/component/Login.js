@@ -1,9 +1,9 @@
 import React, { useContext, useState, } from 'react';
 import { Card, Container } from 'react-bootstrap';
-//import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {Link, Navigate, useNavigate} from 'react-router-dom'
-//import { authAction } from '../redux-store/auth-reducer';
-//import { themeAction } from '../redux-store/theme-reducer';
+import { authAction } from '../redux-store/auth-reducer';
+import { themeAction } from '../redux-store/theme-reducer';
 //import AuthContext from '../store/auth-context';
 
 const Login = () => {
@@ -11,9 +11,9 @@ const Login = () => {
   const [password, setPassword] = useState('');
   
       const navigate =  useNavigate();
-    //   const dispatch = useDispatch();
-    //  const error = useSelector(state=> state.theme.error); 
-      
+   const dispatch = useDispatch();
+  const error = useSelector(state=> state.theme.error); 
+      console.log('login error state',error)
    //const authCtx= useContext(AuthContext);
   const handleUsernameChange = (e) => {
     setEmail(e.target.value);
@@ -36,7 +36,7 @@ const getUserLogin = async (userDetail) =>{
         if(!resp.ok){
           console.log('request send but failed to fetch')
         
-      //  dispatch(themeAction.toggleError());
+        dispatch(themeAction.toggleError());
         return;
         }
 
@@ -45,11 +45,11 @@ const getUserLogin = async (userDetail) =>{
     localStorage.setItem('email', res.email);
     localStorage.setItem('token',res.idToken);
     console.log('use details onLogin',res);
-  //  dispatch( authAction.onLogIn({data: passData}));
-    navigate('/inbox');
+   dispatch( authAction.onLogIn({data: passData}));
+    navigate('/home');
     
   } catch (err) {
-    // dispatch(themeAction.toggleError());
+     dispatch(themeAction.toggleError());
     console.log("request failed", err);
    
   }
@@ -58,15 +58,15 @@ const getUserLogin = async (userDetail) =>{
 
   const handleSubmit =async (e) => {
     e.preventDefault();
-    // if(error){
-    //   dispatch(themeAction.toggleError());
-    // }
+    if(error){
+      dispatch(themeAction.toggleError());
+    }
      
     const detail = {
       email: email,
       password: password,
       returnSecureToken: true,
-    }
+    }   
     await getUserLogin(detail);
  
  
@@ -106,7 +106,7 @@ const getUserLogin = async (userDetail) =>{
             onChange={handlePasswordChange}
           />
         </div>
-        {/* {error && <div>{"failed to login"}</div>} */}
+ {error && <div>{"failed to login"}</div>} 
         <button type="submit">Login</button>
         <div style={{display:'flex' , justifyContent:'space-between'}}>
           <Link to='/forgot'>forgott password?</Link>

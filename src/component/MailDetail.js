@@ -4,19 +4,20 @@ import { useParams } from 'react-router-dom'
 const MailDetail = () => {
      const {item} = useParams();
      const details = JSON.parse(decodeURIComponent(item));
-  console.log('item in Detail',details);
+   const curMail = localStorage.getItem('email');
+     console.log('item in Detail',details);
      return (
     <div style={{margin: '10%'}} >
       <div>
       <div>
-        from: {details.from}
+       {curMail===details.from? 'To' :' From' } : {details.email}
       </div>
       </div>
       <div>
-        Subject: {details.subject}
+        Subject : {details.subject}
       </div>
       <div>
-        message: {details.text}
+        message : {details.text}
       </div>
     </div>
   )

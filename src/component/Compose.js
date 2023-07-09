@@ -2,8 +2,12 @@ import React, { useState } from 'react'
 import { Button, Container,Form } from 'react-bootstrap';
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { themeAction } from '../redux-store/theme-reducer';
 
 const Compose = () => {
+  const dispatch = useDispatch();
+  const error = useSelector((state)=> state.theme.error);
     const fromMail = localStorage.getItem('email').replace(/[@.]/g, ''); 
         const [formData, setFormData] = useState({
             from: localStorage.getItem('email') || '',
@@ -25,12 +29,14 @@ const Compose = () => {
                 }
                })
                if(!resp.ok){
-                throw new Error("succesful request but no response ")
+                dispatch(themeAction.toggleError());
+                return;
                }
                const resArr = await resp.json();
              console.log('from mail success')
               
             } catch (error) {
+              dispatch(themeAction.toggleError);
               console.log("post error==",error);   
             }
            }
@@ -71,6 +77,9 @@ const Compose = () => {
 
     const handleSubmit=(e)=>{
   e.preventDefault();
+  if(error){
+    dispatch(themeAction.toggleError());
+  }
   console.log('check form===',formData);
  if(!formData.email.includes('@gmail.com')){
    return;
@@ -124,7 +133,7 @@ const Compose = () => {
 </Container>
      
 
-        {/* {error && <div>"failed to sign Up</div>} */}
+        {error && <div>"failed to send mail</div>}
         <Button  className='my-3 w-100'  variant="primary" type="submit">
           Send
         </Button>
