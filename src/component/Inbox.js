@@ -129,6 +129,15 @@ useEffect(()=>{
   }
 },[isRead])
 
+useEffect(()=>{
+console.log("setInterval");
+  const intervalId = setInterval(receivedMails, 2000); // Execute fetchData every 2 seconds
+
+  return () => {
+    clearInterval(intervalId); // Cleanup the interval when the component unmounts
+  };
+},[])
+
   return (
     <div style={{marginTop: '8%'}} >{
         mailLen>0 ? 
